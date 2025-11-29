@@ -35,8 +35,12 @@ COPY motd /etc/motd
 
 RUN mkdir /cont
 WORKDIR /cont
+
 COPY init.sh ./
+RUN chmod 777 init.sh
+
 COPY title ./
+
 COPY builder.sh ./home/${username}/
 RUN chmod 777 ./home/${username}/builder.sh
 
