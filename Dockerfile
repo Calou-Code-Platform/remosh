@@ -16,6 +16,7 @@ RUN echo "root:$sudo_password" | chpasswd
 RUN userdel -r ubuntu || true
 RUN useradd -m -s /bin/bash -u 1000 $username
 RUN echo "$username:$password" | chpasswd
+RUN usermod -aG sudo $username
 
 COPY builder.sh /home/${username}/
 RUN chmod 777 /home/${username}/builder.sh
