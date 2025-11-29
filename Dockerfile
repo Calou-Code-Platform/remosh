@@ -31,6 +31,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
 COPY sshd_config /etc/ssh/sshd_config
 COPY motd /etc/motd
 
+RUN mkdir -p /run/sshd
+
 RUN mkdir /cont
 WORKDIR /cont
 COPY init.sh ./
