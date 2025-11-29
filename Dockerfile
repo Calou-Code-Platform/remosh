@@ -17,6 +17,9 @@ RUN userdel -r ubuntu || true
 RUN useradd -m -s /bin/bash -u 1000 $username
 RUN echo "$username:$password" | chpasswd
 
+COPY builder.sh /home/${username}/
+RUN chmod 777 /home/${username}/builder.sh
+
 RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
     DEBIAN_FRONTEND=noninteractive apt install -y \
     openssh-server \
@@ -40,9 +43,6 @@ COPY init.sh ./
 RUN chmod 777 init.sh
 
 COPY title ./
-
-COPY builder.sh ./home/${username}/
-RUN chmod 777 ./home/${username}/builder.sh
 
 EXPOSE 22
 
