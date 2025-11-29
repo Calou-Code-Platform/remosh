@@ -13,6 +13,7 @@ ENV sudo_password="sudo_password"
 USER root
 RUN echo 'root:$sudo_password' | chpasswd
 
+RUN userdel -r ubuntu || true
 RUN useradd -m -s /bin/bash -u 1000 $username
 RUN echo '$username:$password' | chpasswd
 
