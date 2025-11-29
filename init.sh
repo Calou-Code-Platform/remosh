@@ -1,6 +1,8 @@
 #!/bin/bash
 
-cat ./title
+mkdir -p /run/sshd
+
+cat /cont/title
 echo -e
 
 echo "Server is running..."
