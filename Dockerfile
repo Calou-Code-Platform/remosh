@@ -11,11 +11,11 @@ ENV password="password"
 ENV sudo_password="sudo_password"
 
 USER root
-RUN echo 'root:$sudo_password' | chpasswd
+RUN echo "root:$sudo_password" | chpasswd
 
 RUN userdel -r ubuntu || true
 RUN useradd -m -s /bin/bash -u 1000 $username
-RUN echo '$username:$password' | chpasswd
+RUN echo "$username:$password" | chpasswd
 
 RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
     DEBIAN_FRONTEND=noninteractive apt install -y \
