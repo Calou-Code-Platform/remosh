@@ -10,4 +10,5 @@
 Welecome to Calou Code Platform. 
 Powered by ubuntu 24.04 LTS.
 
-* Initialization file: sh ~/builder.sh && ./builder.sh
+* Initialization file: ~/upload_builder.sh
+* Run initialization: ./builder.sh
