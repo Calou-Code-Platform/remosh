@@ -18,8 +18,8 @@ RUN useradd -m -s /bin/bash -u 1000 $username
 RUN echo "$username:$password" | chpasswd
 RUN usermod -aG sudo $username
 
-COPY builder.sh /home/${username}/
-RUN chmod 777 /home/${username}/builder.sh
+COPY upload_builder.sh /home/${username}/
+RUN chmod 777 /home/${username}/upload_builder.sh
 
 RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
     DEBIAN_FRONTEND=noninteractive apt install -y \
