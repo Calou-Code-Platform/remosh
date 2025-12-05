@@ -11,15 +11,8 @@ ENV password="password"
 ENV sudo_password="sudo_password"
 
 USER root
-RUN echo "root:$sudo_password" | chpasswd
 
 RUN userdel -r ubuntu || true
-RUN useradd -m -s /bin/bash -u 1000 $username
-RUN echo "$username:$password" | chpasswd
-RUN usermod -aG sudo $username
-
-COPY upload_builder.sh /home/${username}/
-RUN chmod 777 /home/${username}/upload_builder.sh
 
 RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
     DEBIAN_FRONTEND=noninteractive apt install -y \
@@ -39,6 +32,9 @@ COPY motd /etc/motd
 
 RUN mkdir /cont
 WORKDIR /cont
+
+COPY get-builder.sh ./
+RUN chmod 777 get-builder.sh
 
 COPY init.sh ./
 RUN chmod 777 init.sh
