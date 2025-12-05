@@ -7,5 +7,6 @@ AllowAgentForwarding yes
 AllowTcpForwarding yes
 X11Forwarding yes
 PrintMotd no
+PrintLastLog no
 AcceptEnv LANG LC_*
 Subsystem sftp /usr/lib/openssh/sftp-server
