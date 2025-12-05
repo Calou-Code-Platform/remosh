@@ -13,7 +13,7 @@ if ! id "$username" &>/dev/null; then
 
   echo "root:$sudo_password" | chpasswd
 
-  touch "$username/.sudo_as_admin_successful"
+  touch "/home/$username/.sudo_as_admin_successful"
 
   cp "/cont/get-builder.sh" "/home/$username/get-builder.sh"
   chown -R $username:$username "/home/$username/"
