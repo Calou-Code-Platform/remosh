@@ -14,6 +14,7 @@ if ! id "$username" &>/dev/null; then
   echo "root:$sudo_password" | chpasswd
 
   cp "/cont/get-builder.sh" "/home/$username/get-builder.sh"
+  chown -R $username:$username "/home/$username/"
 else
   echo "$username already loaded."
 fi
