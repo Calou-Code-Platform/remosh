@@ -22,7 +22,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
     git \
     wget \
     ca-certificates \
-    gnupg &&\
+    gnupg \
+    gcc &&\
     rm -rf /var/lib/apt/lists/*
 
 RUN echo 'Defaults lecture="never"' >> /etc/sudoers
