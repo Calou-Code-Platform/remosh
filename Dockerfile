@@ -21,6 +21,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
     sudo \
     git \
     wget \
+    software-properties-common \
     ca-certificates \
     gnupg \
     gcc &&\
