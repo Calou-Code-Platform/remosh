@@ -10,5 +10,7 @@
 Welecome to Calou Code Platform. 
 Powered by ubuntu 24.04 LTS.
 
-* Initialization file: ~/get-builder.sh
-* Run initialization: ./builder.sh
+* Get Builder file: ~/get-builder.sh
+* Builder file: ./builder.sh
+* After Builder file: source ~/.bashrc
+* Restart container: exit 1
