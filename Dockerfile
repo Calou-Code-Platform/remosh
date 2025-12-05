@@ -25,6 +25,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
     gnupg &&\
     rm -rf /var/lib/apt/lists/*
 
+RUN echo 'Defaults lecture="never"' >> /etc/sudoers
 RUN rm -rf /etc/update-motd.d/* /etc/legal /usr/share/doc/base-files/README
 
 COPY sshd_config /etc/ssh/sshd_config
