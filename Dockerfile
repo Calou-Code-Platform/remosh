@@ -44,6 +44,7 @@ COPY init.sh ./
 RUN chmod 777 init.sh
 
 COPY .bashrc ./
+COPY .bash_profile ./
 
 COPY title ./
 
