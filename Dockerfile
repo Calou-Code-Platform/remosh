@@ -16,7 +16,6 @@ RUN userdel -r ubuntu || true
 
 RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
     DEBIAN_FRONTEND=noninteractive apt install -y \
-    openssh-server \
     curl \
     sudo \
     git \
@@ -25,6 +24,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
     ca-certificates \
     gnupg \
     gcc &&\
+    rm -rf /var/lib/apt/lists/*
+
+RUN DEBIAN_FRONTEND=noninteractive apt install -y \
+    openssh-server \
+    tmux &&\
     rm -rf /var/lib/apt/lists/*
 
 RUN echo 'Defaults lecture="never"' >> /etc/sudoers
