@@ -16,6 +16,7 @@ if ! id "$username" &>/dev/null; then
   touch "/home/$username/.sudo_as_admin_successful"
 
   cp "/cont/get-builder.sh" "/home/$username/get-builder.sh"
+  cp "/cont/.bashrc" "/home/$username/.bashrc"
   chown -R $username:$username "/home/$username/"
 else
   echo "$username already loaded."
