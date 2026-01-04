@@ -42,6 +42,8 @@ RUN chmod 777 get-builder.sh
 COPY init.sh ./
 RUN chmod 777 init.sh
 
+COPY .bashrc ./
+
 COPY title ./
 
 EXPOSE 22
