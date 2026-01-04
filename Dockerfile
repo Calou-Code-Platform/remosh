@@ -23,12 +23,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt update -y && \
     software-properties-common \
     ca-certificates \
     gnupg \
-    gcc &&\
-    rm -rf /var/lib/apt/lists/*
-
-RUN DEBIAN_FRONTEND=noninteractive apt install -y \
     openssh-server \
-    tmux &&\
+    tmux \
+    gcc &&\
     rm -rf /var/lib/apt/lists/*
 
 RUN echo 'Defaults lecture="never"' >> /etc/sudoers
