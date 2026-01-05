@@ -18,6 +18,8 @@ if ! id "$username" &>/dev/null; then
   cp "/cont/get-builder.sh" "/home/$username/get-builder.sh"
   cp "/cont/.bashrc" "/home/$username/.bashrc"
   cp "/cont/.bash_profile" "/home/$username/.bash_profile"
+
+  mkdir "/home/$username/workspace"
   
   chown -R $username:$username "/home/$username/"
 else
