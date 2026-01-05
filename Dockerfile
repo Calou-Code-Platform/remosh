@@ -2,7 +2,7 @@ FROM ghcr.io/calou-code-platform/ccp-base-ubuntu:main
 
 LABEL maintainer="caloutw"
 LABEL org.opencontainers.image.title="Remosh"
-LABEL org.opencontainers.image.version="1.0.0"
+LABEL org.opencontainers.image.version="1.2.0"
 LABEL org.opencontainers.image.authors="calou code platform"
 LABEL org.opencontainers.image.description="[Remosh]A simple SSH environment for docker."
 
