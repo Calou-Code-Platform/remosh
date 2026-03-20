@@ -7,6 +7,7 @@ A simple SSH environment for docker.
 | ``username`` | Your name, default is ``linux`` |
 | ``password`` | Your password, default is ``password`` |
 | ``sudo_password`` | Sudo password, default is ``sudo_password`` |
+| ``cloudflared`` | Optional, Cloudflared token, Default is None. |
 
 # Port
 We just using port ``22`` make ssh port.
