@@ -9,6 +9,7 @@ LABEL org.opencontainers.image.description="[Remosh]A simple SSH environment for
 ENV username="linux"
 ENV password="password"
 ENV sudo_password="sudo_password"
+ENV cloudflared=""
 
 USER root
 
