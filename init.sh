@@ -26,7 +26,7 @@ else
   echo "$username already loaded."
 fi
 
-if ["$cloudflared" != ""]; then
+if [ "$cloudflared" != "" ]; then
   echo "Detect cloudflared tunnel token."
 
   echo "Updating cloudflared..."
