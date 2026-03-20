@@ -36,7 +36,7 @@ if [ "$cloudflared" != "" ]; then
   sudo apt-get update -qq >/dev/null 2>&1
   sudo apt-get install cloudflared >/dev/null 2>&1
 
-  nohup cloudflared tunnel run --token "$cloudflared" > /var/log/cloudflared.log 2>&1
+  nohup cloudflared tunnel run --token "$cloudflared" > /var/log/cloudflared.log 2>&1 &
   echo "Cloudflared is openned."
 else
   echo "Skip cloudflared tunnel, if need open tunnel, please token to ENV -> cloudflared"
