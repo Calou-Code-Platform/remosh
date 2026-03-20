@@ -26,14 +26,18 @@ else
   echo "$username already loaded."
 fi
 
-sudo mkdir -p --mode=0755 /usr/share/keyrings
-curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg | sudo tee /usr/share/keyrings/cloudflare-public-v2.gpg >/dev/null
-echo 'deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
-sudo apt-get update && sudo apt-get install cloudflared
-
-if "$cloudflared" != ""; then
+if ["$cloudflared" != ""]; then
   echo "Detect cloudflared tunnel token."
-  nohup cloudflared tunnel run --token "$cloudflared" > /var/log/cloudflared.log 2>&1 &
+
+  echo "Updating cloudflared..."
+  sudo mkdir -p --mode=0755 /usr/share/keyrings
+  curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg | sudo tee /usr/share/keyrings/cloudflare-public-v2.gpg >/dev/null
+  echo 'deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main' | sudo tee /etc/apt/sources.list.d/cloudflared.list >/dev/null
+  sudo apt-get update -qq >/dev/null 2>&1
+  sudo apt-get install cloudflared >/dev/null 2>&1
+
+  nohup cloudflared tunnel run --token "$cloudflared" > /var/log/cloudflared.log 2>&1
+  echo "Cloudflared is openned."
 else
   echo "Skip cloudflared tunnel, if need open tunnel, please token to ENV -> cloudflared"
 fi
