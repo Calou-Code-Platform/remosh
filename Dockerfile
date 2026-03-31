@@ -12,16 +12,6 @@ ENV sudo_password="sudo_password"
 ENV cloudflared=""
 
 USER root
-RUN OLD_USER=$(getent passwd 1000 | cut -d: -f1) && \
-    if [ -n "$OLD_USER" ]; then \
-        usermod -l ${username} -aG sudo $OLD_USER && \
-        usermod -d /home/${username} -m ${username} && \
-        groupmod -n ${username} $OLD_USER; \
-    else \
-        useradd -m -s /bin/bash -u 1000 -G sudo ${username}; \
-    fi && \
-    echo "${username}:${password}" | chpasswd && \
-    echo "root:${sudo_password}" | chpasswd
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
