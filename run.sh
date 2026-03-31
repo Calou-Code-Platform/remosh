@@ -23,6 +23,9 @@ else
 
     echo "${username}:${password}" | chpasswd
     echo "root:${sudo_password}" | chpasswd
+    cp /spc/.bashrc /home/${username}/.bashrc
+    cp /spc/.bash_profile /home/${username}/.bash_profile
+    cp /spc/get-builder.sh /home/${username}/get-builder.sh
     chown -R ${username}:${username} /home/${username}
     echo "User and password configured."
 fi
