@@ -1,0 +1,16 @@
+==================================================
+              ██████╗ ██████╗██████╗ 
+             ██╔════╝██╔════╝██╔══██╗
+             ██║     ██║     ██████╔╝
+             ██║     ██║     ██╔═══╝ 
+             ╚██████╗╚██████╗██║     
+              ╚═════╝ ╚═════╝╚═╝     
+               Calou Code Platform.
+==================================================
+Welecome to Calou Code Platform. 
+Powered by Debian 13 Slim
+
+* Get Builder file: ~/get-builder.sh
+* Builder file: ./builder.sh
+* After Builder file: source ~/.bashrc
+* Restart container: sudo kill 1

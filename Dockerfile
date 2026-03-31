@@ -1,0 +1,78 @@
+FROM ghcr.io/calou-code-platform/ccp-base-debian:main
+
+LABEL maintainer="caloutw"
+LABEL org.opencontainers.image.title="Remosh"
+LABEL org.opencontainers.image.version="1.2.0"
+LABEL org.opencontainers.image.authors="calou code platform"
+LABEL org.opencontainers.image.description="[Remosh]A simple SSH environment for docker."
+
+ENV username="linux"
+ENV password="password"
+ENV sudo_password="sudo_password"
+ENV cloudflared=""
+
+USER root
+RUN OLD_USER=$(getent passwd 1000 | cut -d: -f1) && \
+    if [ -n "$OLD_USER" ]; then \
+        usermod -l ${username} -aG sudo $OLD_USER && \
+        usermod -d /home/${username} -m ${username} && \
+        groupmod -n ${username} $OLD_USER; \
+    else \
+        useradd -m -s /bin/bash -u 1000 -G sudo ${username}; \
+    fi && \
+    echo "${username}:${password}" | chpasswd && \
+    echo "root:${sudo_password}" | chpasswd
+
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update -y && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    sudo \
+    git \
+    wget \
+    ca-certificates \
+    gnupg \
+    openssh-server \
+    tmux \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    libncursesw5-dev \
+    xz-utils \
+    tk-dev \
+    libxml2-dev \
+    libxmlsec1-dev \
+    libffi-dev \
+    liblzma-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo 'Defaults lecture="never"' >> /etc/sudoers
+RUN rm -rf /etc/update-motd.d/* /etc/legal /usr/share/doc/base-files/README
+
+RUN mkdir -p /run/sshd
+RUN mkdir -p --mode=0755 /usr/share/keyrings
+
+COPY config/sshd_config /etc/ssh/sshd_config
+COPY config/motd /etc/motd
+
+RUN mkdir /spc
+WORKDIR /spc
+
+COPY tools/get-builder.sh ./
+RUN chmod +x get-builder.sh
+
+COPY run.sh ./
+RUN chmod +x run.sh
+
+COPY config/.bashrc ./
+COPY config/.bash_profile ./
+
+COPY server/title ./
+
+EXPOSE 22
+
+CMD ["/spc/run.sh"]
