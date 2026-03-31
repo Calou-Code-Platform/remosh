@@ -5,8 +5,26 @@ echo ""
 
 export DEBIAN_FRONTEND=noninteractive
 
-if [ -n "$cloudflared" ]; then
-    echo "$cloudflared" > /spc/cloudflared
+if id "${username}" >/dev/null 2>&1; then
+    echo "User [${username}] already exists."
+else
+    old_user=$(getent passwd 1000 | cut -d: -f1)
+    if [ -n "$old_user" ]; then
+        if [ "$old_user" != "$username" ]; then
+            echo "Updating username from $old_user to $username..."
+            usermod -l ${username} -aG sudo $old_user
+            usermod -d /home/${username} -m ${username}
+            groupmod -n ${username} $old_user
+        fi
+    else
+        echo "Creating new user $username..."
+        useradd -m -s /bin/bash -u 1000 -G sudo ${username}
+    fi
+
+    echo "${username}:${password}" | chpasswd
+    echo "root:${sudo_password}" | chpasswd
+    chown -R ${username}:${username} /home/${username}
+    echo "User and password configured."
 fi
 
 cloudflared_file="/spc/cloudflared"
