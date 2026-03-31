@@ -61,11 +61,6 @@ RUN chmod +x run.sh
 COPY config/.bashrc ./
 COPY config/.bash_profile ./
 
-RUN cp .bashrc /home/${username}/.bashrc && \
-    cp .bash_profile /home/${username}/.bash_profile && \
-    cp get-builder.sh /home/${username}/get-builder.sh && \
-    chown ${username}:${username} /home/${username}/.bashrc /home/${username}/.bash_profile /home/${username}/get-builder.sh
-
 COPY server/title ./
 
 EXPOSE 22
