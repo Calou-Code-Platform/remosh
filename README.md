@@ -28,3 +28,6 @@ docker run -d \
   -p 2222:22 \
   ghcr.io/calou-code-platform/remosh:latest
 ```
+
+## Container Commands
+`chcfd <token>`: If you want change cloudflared token, just use `chcfd <token>`
