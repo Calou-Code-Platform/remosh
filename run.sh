@@ -77,6 +77,20 @@ if [ ! -f "$init_flag" ]; then
     echo "Initialization complete."
 fi
 
+# 啟動 nix daemon
+if [ -x "/nix/var/nix/profiles/default/bin/nix-daemon" ]; then
+    echo "Starting nix-daemon..."
+    rm -f /nix/var/nix/daemon-socket/socket
+    nohup /nix/var/nix/profiles/default/bin/nix-daemon > /var/log/nix-daemon.log 2>&1 &
+    
+    echo "Waiting for nix-daemon socket to be created..."
+    while [ ! -S "/nix/var/nix/daemon-socket/socket" ]; do
+        sleep 0.5
+    done
+    chmod 666 /nix/var/nix/daemon-socket/socket
+    echo "nix-daemon is ready."
+fi
+
 #更新並套用 Cloudflared
 if [ -s "$cloudflared_file" ]; then
     echo "cloudflared token detect."
