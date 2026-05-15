@@ -49,14 +49,13 @@ if [ ! -f "$init_flag" ]; then
 prefix = [ "/home/${username}/workspace" ]
 EOF
 
-    # 這裡負責安裝 nix 和 devbox
-    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install linux --init none --no-confirm
+    echo "Installing Nix & devbox ..."
+    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install linux --init none --no-confirm >/dev/null 2>&1
     mkdir -p /etc/nix && echo "sandbox = false" >> /etc/nix/nix.conf && echo "build-users-group =" >> /etc/nix/nix.conf
     echo ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" >> /etc/profile
     echo ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" >> /etc/bash.bashrc
-    curl -fsSL https://get.jetpack.io/devbox | bash -s -- -f
-
-    # 將權限放回去給使用者
+    curl -fsSL https://get.jetpack.io/devbox | bash -s -- -f >/dev/null 2>&1
+    
     chown -R ${username}:${username} /home/${username}
 
     touch "$init_flag"
