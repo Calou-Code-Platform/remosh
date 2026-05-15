@@ -10,7 +10,7 @@ V2.1: We add `nix` package manager and `devbox`.
 
 | Variable | Description | Default Value |
 | :--- | :--- | :--- |
-| `username` | The username for SSH login. | `linux` |
+| `username` | The username for SSH login. | `coder` |
 | `password` | The password for the user. | `password` |
 | `sudo_password`| The password required for `sudo` privileges. | `sudo_password` |
 | `cloudflared` | (Optional) Your Cloudflare Tunnel token. | *None* |
