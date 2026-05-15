@@ -7,10 +7,13 @@ export DEBIAN_FRONTEND=noninteractive
 init_flag="/spc/.initialized"
 cloudflared_file="/spc/cloudflared"
 
+# 如果沒有初始化就執行
 if [ ! -f "$init_flag" ]; then
+    # 創建使用者
     if id "${username}" >/dev/null 2>&1; then
         echo "User [${username}] already exists."
     else
+        # 兼容一堆奇怪預設有 1000 uid 的配置
         old_user=$(getent passwd 1000 | cut -d: -f1)
         if [ -n "$old_user" ]; then
             if [ "$old_user" != "$username" ]; then
@@ -29,18 +32,37 @@ if [ ! -f "$init_flag" ]; then
         cp /spc/.bashrc /home/${username}/.bashrc
         cp /spc/.bash_profile /home/${username}/.bash_profile
         cp /spc/get-builder.sh /home/${username}/get-builder.sh
-        chown -R ${username}:${username} /home/${username}
         echo "User and password configured."
     fi
 
+    # 配置 Cloudflared
     if [ ! -f "$cloudflared_file" ]; then
         echo "$cloudflared" > "$cloudflared_file"
     fi
+
+    # 配置direnv
+    echo 'eval "$(direnv hook bash)"' >> /home/${username}/.bashrc
+    mkdir -p "/home/${username}/.config/direnv"
+    cat <<EOF > "/home/${username}/.config/direnv/direnv.toml"
+[whitelist]
+prefix = [ "/home/${username}/workspace" ]
+EOF
+
+    # 這裡負責安裝 nix 和 devbox
+    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install linux --init none --no-confirm
+    mkdir -p /etc/nix && echo "sandbox = false" >> /etc/nix/nix.conf && echo "build-users-group =" >> /etc/nix/nix.conf
+    echo ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" >> /etc/profile
+    echo ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" >> /etc/bash.bashrc
+    curl -fsSL https://get.jetpack.io/devbox | bash -s -- -f
+
+    # 將權限放回去給使用者
+    chown -R ${username}:${username} /home/${username}
 
     touch "$init_flag"
     echo "Initialization complete."
 fi
 
+#更新並套用 Cloudflared
 if [ -s "$cloudflared_file" ]; then
     echo "cloudflared token detect."
     cloudflared_token=$(cat "$cloudflared_file" | tr -d '\n\r' | xargs)
