@@ -67,7 +67,10 @@ if [ ! -f "$init_flag" ]; then
         echo 'export NIX_REMOTE=daemon'
     } >> /home/${username}/.bashrc
     
-    chmod +x /usr/local/bin/devbox
+    chmod 755 /usr/local/bin
+    if [ -f "/usr/local/bin/devbox" ]; then
+        chmod 755 /usr/local/bin/devbox
+    fi
     chown -R ${username}:${username} /home/${username}
 
     touch "$init_flag"
