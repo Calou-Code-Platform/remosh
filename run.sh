@@ -42,12 +42,12 @@ if [ ! -f "$init_flag" ]; then
     fi
 
     # 配置direnv
-    echo -e "\neval \"\$(direnv hook bash)\"" >> /home/${username}/.bashrc
+    echo -e "\n\neval \"\$(direnv hook bash)\"" >> /home/${username}/.bashrc
     mkdir -p "/home/${username}/.config/direnv"
-    cat <<EOF > "/home/${username}/.config/direnv/direnv.toml"
-[whitelist]
-prefix = [ "/home/${username}/workspace" ]
-EOF
+    {
+        echo '[whitelist]'
+        echo "prefix = [ \"/home/${username}/workspace\" ]"
+    } > "/home/${username}/.config/direnv/direnv.toml"
 
     echo "Installing Nix & devbox ..."
     curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install linux --init none --no-confirm >/dev/null 2>&1
@@ -55,7 +55,19 @@ EOF
     echo ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" >> /etc/profile
     echo ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" >> /etc/bash.bashrc
     curl -fsSL https://get.jetpack.io/devbox | bash -s -- -f >/dev/null 2>&1
+
+    {
+        echo 'export PATH="/nix/var/nix/profiles/default/bin:$PATH"'
+        echo 'export NIX_REMOTE=daemon'
+    } >> /etc/bash.bashrc
+
+    {
+        echo ""
+        echo -e "\n\nexport PATH=\"/nix/var/nix/profiles/default/bin:\$PATH\""
+        echo 'export NIX_REMOTE=daemon'
+    } >> /home/${username}/.bashrc
     
+    chmod +x /usr/local/bin/devbox
     chown -R ${username}:${username} /home/${username}
 
     touch "$init_flag"
