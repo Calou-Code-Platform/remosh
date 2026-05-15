@@ -42,7 +42,7 @@ if [ ! -f "$init_flag" ]; then
     fi
 
     # 配置direnv
-    echo 'eval "$(direnv hook bash)"' >> /home/${username}/.bashrc
+    echo -e "\neval \"\$(direnv hook bash)\"" >> /home/${username}/.bashrc
     mkdir -p "/home/${username}/.config/direnv"
     cat <<EOF > "/home/${username}/.config/direnv/direnv.toml"
 [whitelist]
