@@ -66,6 +66,10 @@ if [ ! -f "$init_flag" ]; then
         echo -e "\n\nexport PATH=\"/nix/var/nix/profiles/default/bin:\$PATH\""
         echo 'export NIX_REMOTE=daemon'
     } >> /home/${username}/.bashrc
+
+    echo "${username} ALL=(root) NOPASSWD: /bin/rm -rf /homeless-shelter" > /etc/sudoers.d/clean-nix-shelter
+    chmod 0440 /etc/sudoers.d/clean-nix-shelter
+    echo "sudo /bin/rm -rf /homeless-shelter 2>/dev/null" >> /home/${username}/.bashrc
     
     chmod 755 /usr/local/bin
     if [ -f "/usr/local/bin/devbox" ]; then
