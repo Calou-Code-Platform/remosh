@@ -18,6 +18,7 @@ update_prompt() {
 
 export PROMPT_COMMAND="update_prompt"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export DIRENV_LOG_FORMAT=""
 
 trap 'echo -ne "\e[0m"' DEBUG
 
@@ -35,4 +36,17 @@ chcfd() {
 
     sudo sh -c "nohup cloudflared tunnel run --token '$1' > /var/log/cloudflared.log 2>&1 &"
     echo "Cloudflared tunnel restarted."
+}
+
+devbox() {
+    command devbox "$@"
+    local exit_code=$?
+    
+    if [[ "$1" == "init" || "$1" == "add" ]] && [ $exit_code -eq 0 ]; then
+        if [ ! -f .envrc ]; then
+            command devbox generate direnv > /dev/null 2>&1
+            direnv allow > /dev/null 2>&1
+        fi
+    fi
+    return $exit_code
 }
