@@ -36,7 +36,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     libxml2-dev \
     libxmlsec1-dev \
     libffi-dev \
-    liblzma-dev && \
+    liblzma-dev \
     direnv && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
