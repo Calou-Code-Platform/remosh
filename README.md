@@ -1,8 +1,10 @@
 # Remosh
 A lightweight and simple SSH environment for Docker.
 
-## What's New in v2.0? (Breaking Changes)
-We have completely migrated the base image from Ubuntu 24.04 LTS to **Debian 13 Slim**. This architectural change drastically reduces the overall image size and memory footprint, providing a much cleaner and faster development experience.
+## What's New in v2.1? (Breaking Changes)
+V2: We have completely migrated the base image from Ubuntu 24.04 LTS to **Debian 13 Slim**. This architectural change drastically reduces the overall image size and memory footprint, providing a much cleaner and faster development experience.
+
+V2.1: We add `nix` package manager and `devbox`.
 
 ## Environment Variables
 
