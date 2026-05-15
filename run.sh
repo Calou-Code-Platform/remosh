@@ -25,6 +25,7 @@ if [ ! -f "$init_flag" ]; then
         else
             echo "Creating new user $username..."
             useradd -m -s /bin/bash -u 1000 -G sudo ${username}
+            mkdir /home/${username}/workspace
         fi
 
         echo "${username}:${password}" | chpasswd
