@@ -9,7 +9,7 @@ _get_venv_prompt() {
     fi
 }
 
-PS1='╭  \A | $(_get_venv_prompt)\u@\h | \w \n╰► '
+PS1='╭-  | \A | $(_get_venv_prompt)\u@\h | \w | \n╰► '
 
 chcfd() {
     if [ -z "$1" ]; then
