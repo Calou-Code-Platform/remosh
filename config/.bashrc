@@ -10,6 +10,7 @@ _get_venv_prompt() {
 }
 
 PS1='╭-  | \A | $(_get_venv_prompt)\u@\h | \w | \n╰► '
+alias clear='clear; unset CCP_PROMPT_SHOWN'
 
 chcfd() {
     if [ -z "$1" ]; then
