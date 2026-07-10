@@ -34,7 +34,11 @@ if [ ! -f "$init_flag" ]; then
     fi
 
     if [ ! -f "$cloudflared_file" ]; then
-        echo "$cloudflared" > "$cloudflared_file"
+        if [ -n "$cloudflared" ]; then
+            echo "$cloudflared" > "$cloudflared_file"
+        else
+            touch "$cloudflared_file"
+        fi
     fi
 
     touch "$init_flag"
