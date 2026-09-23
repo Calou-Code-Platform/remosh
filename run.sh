@@ -1,5 +1,5 @@
 #!/bin/bash
-cat title
+cat /ccp/title
 echo ""
 
 # 創建旗標
