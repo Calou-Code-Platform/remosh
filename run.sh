@@ -15,6 +15,7 @@ CLOUDFLARED_FLAGS="cloudflared"
 if [ ! -f "flags/$USER_FLAGS" ]; then
     echo "Initialization root password..."
     printf 'root:%s\n' "$password" | chpasswd
+
     touch "flags/$USER_FLAGS"
 fi
 
@@ -37,6 +38,25 @@ fi
 if [ -f "flags/$CLOUDFLARED_FLAGS" ]; then
     cloudflared_token=$(cat "flags/$CLOUDFLARED_FLAGS" | tr -d '\n\r' | xargs)
     nohup cloudflared tunnel run --token "$cloudflared_token" > /var/log/cloudflared.log 2>&1 &
+fi
+
+# 自啟動目錄
+STARTUP_DIR="/root/startup"
+
+# 建立自動運行目錄
+if [ ! -e "$STARTUP_DIR" ]; then
+    mkdir -p "$STARTUP_DIR"
+fi
+
+# 自啟動
+if [ -d "$STARTUP_DIR" ]; then
+    for file in "$STARTUP_DIR"/*; do
+        if [ -f "$file" ]; then
+            session=$(basename "$file")
+            chmod +x "$file"
+            tmux new-session -d -s "$session" "$file"
+        fi
+    done
 fi
 
 echo "Server opened."
