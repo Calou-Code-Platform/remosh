@@ -16,8 +16,8 @@ if [ ! -f "flags/$USER_FLAGS" ]; then
     echo "Initialization root password..."
     printf 'root:%s\n' "$password" | chpasswd
 
-    cp .bashrc /root/.bashrc
-    cp .bash_profile /root/.bash_profile
+    cp /ccp/.bashrc /root/.bashrc
+    cp /ccp/.bash_profile /root/.bash_profile
 
     touch "flags/$USER_FLAGS"
 fi
