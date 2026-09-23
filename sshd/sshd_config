@@ -1,5 +1,5 @@
 Include /etc/ssh/sshd_config.d/*.conf
-PermitRootLogin no
+PermitRootLogin yes
 PasswordAuthentication yes
 KbdInteractiveAuthentication yes
 UsePAM yes
