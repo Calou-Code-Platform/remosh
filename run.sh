@@ -18,6 +18,7 @@ if [ ! -f "flags/$USER_FLAGS" ]; then
 
     cp /ccp/.bashrc /root/.bashrc
     cp /ccp/.bash_profile /root/.bash_profile
+    cp /ccp/get-builder.sh /root/get-builder.sh
 
     touch "flags/$USER_FLAGS"
 fi

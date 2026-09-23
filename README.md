@@ -2,7 +2,9 @@
 A lightweight and simple SSH environment for Docker.
 
 ## What's New in v3.0?
-We make default user to root, and fixed `chcfd` command to `cfd`.
+We've updated the default user to root and renamed the chcfd command to cfd.<br>
+We also added a brand new feature: Auto-startup! It will now automatically start up whenever your container reboots.
+
 
 ## Environment Variables
 | Variable | Description | Default Value |
