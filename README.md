@@ -25,5 +25,4 @@ docker run -d \
   ghcr.io/calou-code-platform/remosh:latest
 ```
 
-## Container Commands
 `cfd <token>`: If you want change cloudflared token, just use `cfd <token>`
