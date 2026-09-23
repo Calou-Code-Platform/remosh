@@ -55,12 +55,14 @@ fi
 
 # 自啟動
 if [ -d "$STARTUP_DIR" ]; then
-    for file in "$STARTUP_DIR"/*; do
-        if [ -f "$file" ]; then
-            session=$(basename "$file")
-            chmod +x "$file"
-            tmux new-session -d -s "$session" "$file"
-        fi
+    shopt -s nullglob
+    for file in "$STARTUP_DIR"/*.sh; do
+        [ -f "$file" ] || continue
+        base="$(basename "$file" .sh)"
+        sanitized="${base//./_}"
+        session="${sanitized}__startup"
+        chmod +x "$file"
+        tmux new-session -d -s "$session" "$file"
     done
 fi
 
