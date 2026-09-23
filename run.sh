@@ -40,6 +40,7 @@ fi
 
 # 判斷 Cloudflared 旗標是否存在
 if [ -f "flags/$CLOUDFLARED_FLAGS" ]; then
+    echo "Starting cloudflared..."
     cloudflared_token=$(cat "flags/$CLOUDFLARED_FLAGS" | tr -d '\n\r' | xargs)
     nohup cloudflared tunnel run --token "$cloudflared_token" > /var/log/cloudflared.log 2>&1 &
 fi
