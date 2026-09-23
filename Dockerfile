@@ -48,8 +48,8 @@ RUN mkdir -p /run/sshd
 RUN mkdir -p --mode=0755 /usr/share/keyrings
 
 # 修改 sshd 的設定檔
-COPY config/sshd_config /etc/ssh/sshd_config
-COPY config/motd /etc/motd
+COPY sshd/sshd_config /etc/ssh/sshd_config
+COPY sshd/motd /etc/motd
 
 # 建立 root 的 workspace
 RUN mkdir -p /root/workspace
