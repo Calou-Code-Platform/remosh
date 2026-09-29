@@ -18,3 +18,4 @@ cfd() {
     cloudflared_token=$(cat "$CLOUDFLARED_FLAGS" | tr -d '\n\r' | xargs)
     nohup cloudflared tunnel run --token "$cloudflared_token" > /var/log/cloudflared.log 2>&1 &
 }
+
